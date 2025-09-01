@@ -46,13 +46,14 @@ def analyze_text():
     
 def analyzing_animation(step=0):
     global advice_string
+    advice_text.config(state='normal')
+    advice_text.delete('1.0', 'end')
     dots = '.' * (step % 4)
     advice_string = f'Analyzing{dots}'
     advice_text.insert('1.0', advice_string)
     if step < 4:
         root.after(300, analyzing_animation, step+1)   
-    elif step == 4: 
-        advice_text.config(state='normal')
+    elif step == 4:
         display_advice()
     
     
@@ -63,6 +64,7 @@ def display_advice():
     root.after(2000, edit_details)
     
 def edit_details():
+    advice_text.delete('1.0', 'end')
     advice_text.insert('1.0', advice_string)
     advice_text.config(state='disabled')
     sentiment_text.config(text=f'{bot.emotion}')
